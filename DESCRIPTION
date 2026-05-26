@@ -1,0 +1,13 @@
+Package: webgem
+Title: Tools for Ranking and Visualizing Baseball Hitter Metrics
+Version: 0.0.0.9000
+Authors@R: 
+    person("Conner", "Robertson", , "crob2403@gmail.com", role = c("aut", "cre"))
+Description: Provides beginner-friendly tools for labeling numeric metrics by thresholds, creating scaled baseball hitter profiles, and visualizing hitter strengths with radar plots.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 8.0.0
+Imports: 
+    checkmate,
+    fmsb
