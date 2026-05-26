@@ -29,7 +29,7 @@
 #'   upper_label = "bad era")
 metricRank <- function(x, threshold, upper_threshold = NULL, lower_label, middle_label = NULL, upper_label) {
 
-  checkmate::assert_numeric(x)
+  checkmate::assert_numeric(x, min.len = 2)
   checkmate::assert_number(threshold)
   checkmate::assert_string(lower_label)
   checkmate::assert_string(upper_label)

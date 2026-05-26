@@ -6,7 +6,7 @@
 #' then be inputted into the `hitterRadar` function, that will plot the metrics on
 #' a radar plot.
 #'
-#' @param player The name of the player.
+#' @param player The name of the player being analyzed, must be one character string.
 #' @param wrc_plus Weighted runs created plus.
 #' @param ops On-base plus slugging.
 #' @param obp On-base percentage.
@@ -36,7 +36,7 @@
 #' )
 #'
 #' judge_profile
-hitterProfile <- function(player = NULL,
+hitterProfile <- function(player,
                           wrc_plus = NULL,
                           ops = NULL,
                           obp = NULL,
@@ -49,9 +49,7 @@ hitterProfile <- function(player = NULL,
                           barrel_pct = NULL,
                           hard_hit_pct = NULL) {
 
-  if (!is.null(player)) {
-    checkmate::assert_string(player)
-  }
+  checkmate::assert_string(player)
 
   if (!is.null(wrc_plus)) {
     checkmate::assert_number(wrc_plus)

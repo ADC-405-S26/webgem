@@ -5,7 +5,7 @@
 \title{Create a scaled hitter profile from user defined offensive metrics}
 \usage{
 hitterProfile(
-  player = NULL,
+  player,
   wrc_plus = NULL,
   ops = NULL,
   obp = NULL,
@@ -20,7 +20,7 @@ hitterProfile(
 )
 }
 \arguments{
-\item{player}{The name of the player.}
+\item{player}{The name of the player being analyzed, must be one character string.}
 
 \item{wrc_plus}{Weighted runs created plus.}
 
