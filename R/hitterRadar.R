@@ -23,6 +23,14 @@
 #' hitterRadar(judge_profile)
 hitterRadar <- function(profile_data) {
 
+  checkmate::assert_data_frame(profile_data)
+  checkmate::assert_names(
+    names(profile_data),
+    must.include = c("metric", "scaled_value", "player")
+  )
+  checkmate::assert_numeric(profile_data$scaled_value)
+  checkmate::assert_character(profile_data$metric)
+
   radar_values <- as.data.frame(t(profile_data$scaled_value))
 
   names(radar_values) <- profile_data$metric
