@@ -1,0 +1,80 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# webgem
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of webgem is to make baseball hitting metrics easier to interpret by ranking, scaling, and visualizing player statistics.
+
+## Installation
+
+You can install the development version of webgem from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("remotes")
+# install.packages("devtools")
+devtools::install_github("connerrob24/webgem")
+```
+
+## Examples
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(webgem)
+```
+
+#### metricRank Example
+
+```{r}
+metricRank(
+  x = webgem_data$ops,
+  threshold = 0.8,
+  lower_label = "mediocre ops",
+  upper_label = "great ops"
+)
+```
+
+#### hitterProfile Example
+
+```{r}
+player_data <- webgem_data[webgem_data$player == "Shohei Ohtani", ]
+
+ohtani_profile <- hitterProfile(
+  player = player_data$player,
+  wrc_plus = player_data$wrc_plus,
+  ops = player_data$ops,
+  obp = player_data$obp,
+  slg = player_data$slg,
+  avg = player_data$avg,
+  iso = player_data$iso,
+  war = player_data$war,
+  woba = player_data$woba,
+  bb_pct = player_data$bb_pct,
+  barrel_pct = player_data$barrel_pct,
+  hard_hit_pct = player_data$hard_hit_pct
+)
+
+ohtani_profile
+```
+
+#### hitterRadar Example
+
+```{r}
+hitterRadar(ohtani_profile)
+```
+

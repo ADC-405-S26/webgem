@@ -7,3 +7,5 @@
 ^webgem\.Rcheck$
 ^webgem.*\.tar\.gz$
 ^webgem.*\.tgz$
+^data-raw$
+^README\.Rmd$
