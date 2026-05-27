@@ -8,3 +8,7 @@ project*.tgz
 webgem.Rcheck/
 webgem*.tar.gz
 webgem*.tgz
+inst/doc
+/doc/
+/Meta/
+docs

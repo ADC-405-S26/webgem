@@ -18,7 +18,7 @@ You can install the development version of webgem from
 ``` r
 # install.packages("remotes")
 # install.packages("devtools")
-devtools::install_github("connerrob24/webgem")
+devtools::install_github("ADC-405-S26/webgem")
 ```
 
 ## Examples
