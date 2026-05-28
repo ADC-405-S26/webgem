@@ -235,7 +235,6 @@ want to examine.</p>
 <p>hitterRadar() takes the profile data created by hitterProfile() and
 turns it into a radar plot. Because the radar plot uses the scaled_value
 column, the metrics are shown on the same 0–100 scale.</p>
-<p>hitterRadar(ohtani_profile)</p>
 <p>The function expects a data frame with at least three important
 columns: metric, scaled_value, and player. These columns are
 automatically created by hitterProfile(), so the easiest workflow is to
@@ -261,9 +260,8 @@ on-base ability, overall production, or quality of contact.</p>
 <span></span>
 <span><span class="fu"><a href="../reference/hitterRadar.html">hitterRadar</a></span><span class="op">(</span><span class="va">profile</span><span class="op">)</span></span></code></pre></div>
 <p><img src="intro-to-webgem_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="700"></p>
-<p>This workflow shows how the functions are meant to work together:
-hitterProfile() organizes and scales the statistics, and hitterRadar()
-visualizes the scaled profile.</p>
+<p><code><a href="../reference/hitterProfile.html">hitterProfile()</a></code> organizes and scales the statistics, and
+<code><a href="../reference/hitterRadar.html">hitterRadar()</a></code> visualizes the scaled profile.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
