@@ -148,8 +148,6 @@ This function is useful because it prepares the data for comparison and plotting
 
 hitterRadar() takes the profile data created by hitterProfile() and turns it into a radar plot. Because the radar plot uses the scaled_value column, the metrics are shown on the same 0–100 scale.
 
-hitterRadar(ohtani_profile)
-
 The function expects a data frame with at least three important columns: metric, scaled_value, and player. These columns are automatically created by hitterProfile(), so the easiest workflow is to create a profile first and then pass that profile directly into hitterRadar().
 
 The radar plot helps the user see the shape of a player’s offensive profile. Metrics farther from the center represent higher scaled values. This makes it easier to notice whether a hitter is strongest in power, on-base ability, overall production, or quality of contact.
@@ -172,4 +170,4 @@ profile <- hitterProfile(
 hitterRadar(profile)
 ```
 
-This workflow shows how the functions are meant to work together: hitterProfile() organizes and scales the statistics, and hitterRadar() visualizes the scaled profile.
+`hitterProfile()` organizes and scales the statistics, and `hitterRadar()` visualizes the scaled profile.

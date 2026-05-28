@@ -39,16 +39,15 @@ The package includes three main functions:
 - `hitterRadar()` creates a radar plot from a hitter profile.
 
 
-## Examples
-
-This is a basic example which shows you how to solve a common problem:
+## `Examples`
 
 ```{r example}
 library(webgem)
 ```
 
-#### metricRank Example
+## `metricRank` Example
 
+*one threshold*
 ```{r}
 metricRank(
   x = webgem_data$ops,
@@ -58,7 +57,19 @@ metricRank(
 )
 ```
 
-#### hitterProfile Example
+*two thresholds*
+```{r}
+metricRank(
+  x = webgem_data$ops,
+  threshold = 0.7,
+  upper_threshold = 0.9,
+  lower_label = "bad ops",
+  middle_label = "okay ops",
+  upper_label = "great ops"
+)
+```
+
+## `hitterProfile` Example
 
 ```{r}
 player_data <- webgem_data[webgem_data$player == "Shohei Ohtani", ]
@@ -81,7 +92,7 @@ ohtani_profile <- hitterProfile(
 ohtani_profile
 ```
 
-#### hitterRadar Example
+## hitterRadar Example
 
 ```{r}
 hitterRadar(ohtani_profile)

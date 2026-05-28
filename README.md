@@ -35,15 +35,15 @@ The package includes three main functions:
   offensive metrics.
 - `hitterRadar()` creates a radar plot from a hitter profile.
 
-## Examples
-
-This is a basic example which shows you how to solve a common problem:
+## `Examples`
 
 ``` r
 library(webgem)
 ```
 
-#### metricRank Example
+## `metricRank` Example
+
+*one threshold*
 
 ``` r
 metricRank(
@@ -59,7 +59,25 @@ metricRank(
 #> [21] "great ops"    "mediocre ops" "mediocre ops" "mediocre ops" "great ops"
 ```
 
-#### hitterProfile Example
+*two thresholds*
+
+``` r
+metricRank(
+  x = webgem_data$ops,
+  threshold = 0.7,
+  upper_threshold = 0.9,
+  lower_label = "bad ops",
+  middle_label = "okay ops",
+  upper_label = "great ops"
+)
+#>  [1] "okay ops"  "okay ops"  "okay ops"  "great ops" "okay ops"  "okay ops" 
+#>  [7] "okay ops"  "okay ops"  "bad ops"   "okay ops"  "bad ops"   "okay ops" 
+#> [13] "okay ops"  "okay ops"  "great ops" "okay ops"  "great ops" "okay ops" 
+#> [19] "okay ops"  "great ops" "okay ops"  "okay ops"  "bad ops"   "okay ops" 
+#> [25] "okay ops"
+```
+
+## `hitterProfile` Example
 
 ``` r
 player_data <- webgem_data[webgem_data$player == "Shohei Ohtani", ]
@@ -94,10 +112,10 @@ ohtani_profile
 #> 11 Hard Hit%    28.100     20.25000 Shohei Ohtani
 ```
 
-#### hitterRadar Example
+## hitterRadar Example
 
 ``` r
 hitterRadar(ohtani_profile)
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" alt="" width="100%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" alt="" width="100%" />
