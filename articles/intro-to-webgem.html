@@ -65,7 +65,209 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://adc-405-s26.github.io/webgem/">webgem</a></span><span class="op">)</span></span></code></pre></div>
-  </main>
+<div class="section level2">
+<h2 id="what-are-advanced-baseball-metrics-and-why-do-they-matter">What are advanced baseball metrics and why do they matter?<a class="anchor" aria-label="anchor" href="#what-are-advanced-baseball-metrics-and-why-do-they-matter"></a>
+</h2>
+<p>A hitter’s offensive value is not based on one skill. Two players can
+have similar overall production while getting there in very different
+ways. One hitter may create value by reaching base often, and another
+may rely on consistently hit the ball hard. <code>webgem</code> is
+designed to help users compare those different parts of a hitter’s
+offensive profile.</p>
+<p><code>OBP</code>, or on-base percentage, measures how often a hitter
+reaches base through hits, walks, or hit-by-pitches. A player with a
+strong <code>OBP</code> helps extend innings and creates more scoring
+opportunities, even if they are not always hitting for power.</p>
+<p><code>SLG</code>, or slugging percentage, focuses more on power.
+Unlike batting average, slugging percentage gives extra credit for
+doubles, triples, and home runs. This makes it useful for identifying
+hitters who do more damage when they put the ball in play. A player with
+a high <code>SLG</code> is usually contributing extra-base hits rather
+than only singles.</p>
+<p><code>OPS</code> (“On-Base Plus Slugging”) combines <code>OBP</code>
+and <code>SLG</code>, gives a quick summary of both on-base and power,
+and is one of the most reliable measured statistics used to measure a
+hitter’s overall offensive production. It’s meant to combine how well a
+hitter can reach base, with how well he can hit for average and for
+power.</p>
+<p><code>wRC+</code> (“Weighted Runs Created Plus”) is an advanced
+statistic that essentially measures a hitter’s overall offensive value.
+It places offensive production on a league-adjusted scale; a value of
+100 represents league average, while a value above 100 means the hitter
+was better than league average. This makes <code>wRC+</code> helpful for
+comparing hitters because it adjusts for context better than a raw
+statistic like <code>OPS</code>.</p>
+<p><code>ISO</code>, or isolated power (<code>ISO</code> =
+<code>SLG</code> - <code>BA</code>), is another advanced metric that
+measures a hitter’s raw power by calculating how many extra bases they
+average per at-bat. It isolates a player’s ability to hit for extra
+bases (doubles, triples, and home runs) while completely ignoring
+singles, showing whether a hitter’s production is coming from extra-base
+hits.</p>
+<p><code>wOBA</code>, or weighted on-base average, gives different
+offensive events different values. It is an advanced statistic that
+measures a player’s overall offensive value by assigning different
+run-values to each way a player can reach base. Instead of treating all
+hits equally, it properly weighs hits and walks based on their actual
+contribution to scoring runs. A single, double, triple, home run, and
+walk do not contribute equally to run scoring.</p>
+<p><code>WAR</code>, or wins above replacement, is an advanced,
+all-encompassing statistic that estimates the total number of wins a
+player adds to their team compared to a freely available
+“replacement-level” player (e.g., a minor leaguer or bench player).
+Thus, it attempts to consolidate every facet of a player’s game
+(batting, base-running, fielding, and pitching) into one quantifiable
+number.</p>
+<p>Barrel percentage and hard-hit percentage describe quality of
+contact. In broader terms, these specific metrics do not tend to focus
+on the final result of a play, but purely how well the hitter is hitting
+the ball. A high barrel percentage suggests that a player is frequently
+making contact with a strong combination of exit velocity and launch
+angle. A high hard-hit percentage solely suggests that the player is
+consistently hitting the ball with at a high exit-velocity.</p>
+</div>
+<div class="section level2">
+<h2 id="why-use-webgem">Why use <code>webgem</code>?<a class="anchor" aria-label="anchor" href="#why-use-webgem"></a>
+</h2>
+<p>While these specified baseball metrics can be exceedingly useful,
+they often use different scales. For example, <code>wRC+</code>,
+<code>OPS</code>, <code>OBP</code>, <code>SLG</code>, <code>WAR</code>,
+and barrel percentage are all useful, but they are not directly
+comparable in their raw form. A <code>wRC+</code> value might be around
+100, while an <code>OPS</code> value is typically below 1.000, and
+barrel percentage is measured as a percentage.</p>
+<p>The challenge is that all of these metrics are measured differently.
+It is difficult to objectively analyze the full effect of a player’s
+offensive production (i.e. multiple distinct metrics) without access to
+quantitative forms of comparison.</p>
+<p><code>webgem</code> is meant to help users compare these unique
+metrics.</p>
+<div class="section level3">
+<h3 id="metricrank">
+<code>metricRank()</code><a class="anchor" aria-label="anchor" href="#metricrank"></a>
+</h3>
+<p><code><a href="../reference/metricRank.html">metricRank()</a></code> takes a numeric vector and returns category
+labels based on threshold values chosen by the user, turning a numeric
+statistic into a more readable category. The user can decide and label
+what values should as low, middle, or high. This is useful when a user
+wants to classify a statistic rather than only view the raw number, or
+when comparing many players at once. A column of raw values can be
+difficult to scan quickly, but a column of labels makes it easier to
+identify which players fall into each performance group.</p>
+<p>The function can be used in two ways. With one threshold, it creates
+two groups. For example, a user could label every player with an
+<code>OPS</code> of at least 0.800 as <code>"strong OPS"</code> and
+everyone below 0.800 as <code>"below .800 OPS"</code>.</p>
+<pre><code><span><span class="va">webgem_data</span><span class="op">$</span><span class="va">ops_rank</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/metricRank.html">metricRank</a></span><span class="op">(</span></span>
+<span>  x <span class="op">=</span> <span class="va">webgem_data</span><span class="op">$</span><span class="va">ops</span>,</span>
+<span>  threshold <span class="op">=</span> <span class="fl">0.800</span>,</span>
+<span>  lower_label <span class="op">=</span> <span class="st">"below .800 OPS"</span>,</span>
+<span>  upper_label <span class="op">=</span> <span class="st">"strong OPS"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">webgem_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"player"</span>, <span class="st">"ops"</span>, <span class="st">"ops_rank"</span><span class="op">)</span><span class="op">]</span></span></code></pre>
+<p>The function can also use two thresholds to create three groups. In
+this case, values below the first threshold receive the lower label,
+values between the two thresholds receive the middle label, and values
+at or above the upper threshold receive the upper label.</p>
+<pre><code><span><span class="va">webgem_data</span><span class="op">$</span><span class="va">ops_group</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/metricRank.html">metricRank</a></span><span class="op">(</span></span>
+<span>  x <span class="op">=</span> <span class="va">webgem_data</span><span class="op">$</span><span class="va">ops</span>,</span>
+<span>  threshold <span class="op">=</span> <span class="fl">0.700</span>,</span>
+<span>  upper_threshold <span class="op">=</span> <span class="fl">0.850</span>,</span>
+<span>  lower_label <span class="op">=</span> <span class="st">"low OPS"</span>,</span>
+<span>  middle_label <span class="op">=</span> <span class="st">"solid OPS"</span>,</span>
+<span>  upper_label <span class="op">=</span> <span class="st">"excellent OPS"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">webgem_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"player"</span>, <span class="st">"ops"</span>, <span class="st">"ops_group"</span><span class="op">)</span><span class="op">]</span></span></code></pre>
+<p>Overall, instead of manually writing repeated if_else() statements
+each time, the user can quickly create readable performance groups for
+any numeric metric.</p>
+</div>
+<div class="section level3">
+<h3 id="hitterprofile">
+<code>hitterProfile()</code><a class="anchor" aria-label="anchor" href="#hitterprofile"></a>
+</h3>
+<p><code><a href="../reference/hitterProfile.html">hitterProfile()</a></code> creates a profile table for one hitter.
+The user provides a player name and any combination of the supported
+hitting metrics. The function ignores metrics that are not provided, so
+the user does not need to fill in every argument.</p>
+<p>For example, a user can select one player from webgem_data and pass
+that player’s statistics into <code><a href="../reference/hitterProfile.html">hitterProfile()</a></code>.</p>
+<pre><code><span><span class="va">player_data</span> <span class="op">&lt;-</span> <span class="va">webgem_data</span><span class="op">[</span><span class="va">webgem_data</span><span class="op">$</span><span class="va">player</span> <span class="op">==</span> <span class="st">"Shohei Ohtani"</span>, <span class="op">]</span></span>
+<span></span>
+<span><span class="va">ohtani_profile</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/hitterProfile.html">hitterProfile</a></span><span class="op">(</span></span>
+<span>  player <span class="op">=</span> <span class="va">player_data</span><span class="op">$</span><span class="va">player</span>,</span>
+<span>  wrc_plus <span class="op">=</span> <span class="va">player_data</span><span class="op">$</span><span class="va">wrc_plus</span>,</span>
+<span>  ops <span class="op">=</span> <span class="va">player_data</span><span class="op">$</span><span class="va">ops</span>,</span>
+<span>  obp <span class="op">=</span> <span class="va">player_data</span><span class="op">$</span><span class="va">obp</span>,</span>
+<span>  slg <span class="op">=</span> <span class="va">player_data</span><span class="op">$</span><span class="va">slg</span>,</span>
+<span>  avg <span class="op">=</span> <span class="va">player_data</span><span class="op">$</span><span class="va">avg</span>,</span>
+<span>  iso <span class="op">=</span> <span class="va">player_data</span><span class="op">$</span><span class="va">iso</span>,</span>
+<span>  war <span class="op">=</span> <span class="va">player_data</span><span class="op">$</span><span class="va">war</span>,</span>
+<span>  woba <span class="op">=</span> <span class="va">player_data</span><span class="op">$</span><span class="va">woba</span>,</span>
+<span>  bb_pct <span class="op">=</span> <span class="va">player_data</span><span class="op">$</span><span class="va">bb_pct</span>,</span>
+<span>  barrel_pct <span class="op">=</span> <span class="va">player_data</span><span class="op">$</span><span class="va">barrel_pct</span>,</span>
+<span>  hard_hit_pct <span class="op">=</span> <span class="va">player_data</span><span class="op">$</span><span class="va">hard_hit_pct</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ohtani_profile</span></span></code></pre>
+<pre><code><span><span class="co">#&gt;   metric raw_value scaled_value        player</span></span>
+<span><span class="co">#&gt; 1   wRC+   151.000     67.33333 Shohei Ohtani</span></span>
+<span><span class="co">#&gt; 2    OPS     0.709     15.57143 Shohei Ohtani</span></span>
+<span><span class="co">#&gt; 3    OBP     0.335     49.23077 Shohei Ohtani</span></span>
+<span><span class="co">#&gt; 4    SLG     0.374     24.80000 Shohei Ohtani</span></span>
+<span><span class="co">#&gt; 5    AVG     0.246     42.66667 Shohei Ohtani</span></span>
+<span><span class="co">#&gt; 6    ISO     0.128     22.28571 Shohei Ohtani</span></span></code></pre>
+<p>The output is a data frame with the metric name, the original raw
+value, the scaled value, and the player name. The raw_value column keeps
+the original baseball statistic. The scaled_value column converts each
+metric to a 0–100 scale so the metrics can be compared more easily.</p>
+<p>This function is useful because it prepares the data for comparison
+and plotting. A user can create a smaller profile with only a few
+metrics or a fuller profile with many metrics, depending on what they
+want to examine.</p>
+</div>
+<div class="section level3">
+<h3 id="hitterradar">
+<code>hitterRadar()</code><a class="anchor" aria-label="anchor" href="#hitterradar"></a>
+</h3>
+<p>hitterRadar() takes the profile data created by hitterProfile() and
+turns it into a radar plot. Because the radar plot uses the scaled_value
+column, the metrics are shown on the same 0–100 scale.</p>
+<p>hitterRadar(ohtani_profile)</p>
+<p>The function expects a data frame with at least three important
+columns: metric, scaled_value, and player. These columns are
+automatically created by hitterProfile(), so the easiest workflow is to
+create a profile first and then pass that profile directly into
+hitterRadar().</p>
+<p>The radar plot helps the user see the shape of a player’s offensive
+profile. Metrics farther from the center represent higher scaled values.
+This makes it easier to notice whether a hitter is strongest in power,
+on-base ability, overall production, or quality of contact.</p>
+<p>A typical workflow is:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">player_data</span> <span class="op">&lt;-</span> <span class="va">webgem_data</span><span class="op">[</span><span class="va">webgem_data</span><span class="op">$</span><span class="va">player</span> <span class="op">==</span> <span class="st">"James Wood"</span>, <span class="op">]</span></span>
+<span></span>
+<span><span class="va">profile</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/hitterProfile.html">hitterProfile</a></span><span class="op">(</span></span>
+<span>  player <span class="op">=</span> <span class="va">player_data</span><span class="op">$</span><span class="va">player</span>,</span>
+<span>  wrc_plus <span class="op">=</span> <span class="va">player_data</span><span class="op">$</span><span class="va">wrc_plus</span>,</span>
+<span>  ops <span class="op">=</span> <span class="va">player_data</span><span class="op">$</span><span class="va">ops</span>,</span>
+<span>  obp <span class="op">=</span> <span class="va">player_data</span><span class="op">$</span><span class="va">obp</span>,</span>
+<span>  slg <span class="op">=</span> <span class="va">player_data</span><span class="op">$</span><span class="va">slg</span>,</span>
+<span>  avg <span class="op">=</span> <span class="va">player_data</span><span class="op">$</span><span class="va">avg</span>,</span>
+<span>  iso <span class="op">=</span> <span class="va">player_data</span><span class="op">$</span><span class="va">iso</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/hitterRadar.html">hitterRadar</a></span><span class="op">(</span><span class="va">profile</span><span class="op">)</span></span></code></pre></div>
+<p><img src="intro-to-webgem_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="700"></p>
+<p>This workflow shows how the functions are meant to work together:
+hitterProfile() organizes and scales the statistics, and hitterRadar()
+visualizes the scaled profile.</p>
+</div>
+</div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 

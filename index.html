@@ -55,7 +55,7 @@
 </h1></div>
 <!-- badges: start -->
 <!-- badges: end -->
-<p>The goal of webgem is to make baseball hitting metrics easier to interpret by ranking, scaling, and visualizing player statistics.</p>
+<p><code>webgem</code> is an R package for ranking, scaling, and visualizing baseball hitting metrics. The package is designed to make offensive statistics easier to interpret by turning raw numeric values into clear labels, scaled hitter profiles, and radar plots. With that, the goal of <code>webgem</code> is to provide users with a streamlined process at interpreting metrics through ranking, scaling, and visualizing player statistics.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -64,6 +64,19 @@
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
 <span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ADC-405-S26/webgem"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="main-functions">Main Functions<a class="anchor" aria-label="anchor" href="#main-functions"></a>
+</h2>
+<p>The package includes three main functions:</p>
+<ul>
+<li>
+<code><a href="reference/metricRank.html">metricRank()</a></code> labels numeric values using one or two user-defined thresholds.</li>
+<li>
+<code><a href="reference/hitterProfile.html">hitterProfile()</a></code> creates a scaled hitter profile from selected offensive metrics.</li>
+<li>
+<code><a href="reference/hitterRadar.html">hitterRadar()</a></code> creates a radar plot from a hitter profile.</li>
+</ul>
 </div>
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>

@@ -1,7 +1,11 @@
 # webgem
 
-The goal of webgem is to make baseball hitting metrics easier to
-interpret by ranking, scaling, and visualizing player statistics.
+`webgem` is an R package for ranking, scaling, and visualizing baseball
+hitting metrics. The package is designed to make offensive statistics
+easier to interpret by turning raw numeric values into clear labels,
+scaled hitter profiles, and radar plots. With that, the goal of `webgem`
+is to provide users with a streamlined process at interpreting metrics
+through ranking, scaling, and visualizing player statistics.
 
 ## Installation
 
@@ -14,6 +18,17 @@ You can install the development version of webgem from
 # install.packages("devtools")
 devtools::install_github("ADC-405-S26/webgem")
 ```
+
+## Main Functions
+
+The package includes three main functions:
+
+- [`metricRank()`](https://adc-405-s26.github.io/webgem/reference/metricRank.md)
+  labels numeric values using one or two user-defined thresholds.
+- [`hitterProfile()`](https://adc-405-s26.github.io/webgem/reference/hitterProfile.md)
+  creates a scaled hitter profile from selected offensive metrics.
+- [`hitterRadar()`](https://adc-405-s26.github.io/webgem/reference/hitterRadar.md)
+  creates a radar plot from a hitter profile.
 
 ## Examples
 
